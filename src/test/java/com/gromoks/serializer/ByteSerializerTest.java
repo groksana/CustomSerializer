@@ -98,4 +98,99 @@ public class ByteSerializerTest {
         assertEquals(shortNumber, deserializedShortNumber);
     }
 
+    @Test
+    public void serializeMaxNegativeLongTest() throws IOException, ClassNotFoundException {
+        Long longNumber = Long.MIN_VALUE;
+        byte[] longBytes = byteSerializer.serialize(longNumber);
+        Long deserializedLongNumber = (Long) byteSerializer.deserialize(longBytes);
+        assertEquals(longNumber, deserializedLongNumber);
+    }
+
+    @Test
+    public void serializeMaxPositiveLongTest() throws IOException, ClassNotFoundException {
+        Long longNumber = Long.MAX_VALUE;
+        byte[] longBytes = byteSerializer.serialize(longNumber);
+        Long deserializedLongNumber = (Long) byteSerializer.deserialize(longBytes);
+        assertEquals(longNumber, deserializedLongNumber);
+    }
+
+    @Test
+    public void serializeZeroLongTest() throws IOException, ClassNotFoundException {
+        Long longNumber = 0L;
+        byte[] longBytes = byteSerializer.serialize(longNumber);
+        Long deserializedLongNumber = (Long) byteSerializer.deserialize(longBytes);
+        assertEquals(longNumber, deserializedLongNumber);
+    }
+
+    @Test
+    public void serializeMaxNegativeFloatTest() throws IOException, ClassNotFoundException {
+        Float floatNumber = Float.MIN_VALUE;
+        byte[] floatBytes = byteSerializer.serialize(floatNumber);
+        Float deserializedFloatNumber = (Float) byteSerializer.deserialize(floatBytes);
+        assertEquals(floatNumber, deserializedFloatNumber);
+    }
+
+    @Test
+    public void serializeMaxPositiveFloatTest() throws IOException, ClassNotFoundException {
+        Float floatNumber = Float.MAX_VALUE;
+        byte[] floatBytes = byteSerializer.serialize(floatNumber);
+        Float deserializedFloatNumber = (Float) byteSerializer.deserialize(floatBytes);
+        assertEquals(floatNumber, deserializedFloatNumber);
+    }
+
+    @Test
+    public void serializeZeroFloatTest() throws IOException, ClassNotFoundException {
+        Float floatNumber = 0.0F;
+        byte[] floatBytes = byteSerializer.serialize(floatNumber);
+        Float deserializedFloatNumber = (Float) byteSerializer.deserialize(floatBytes);
+        assertEquals(floatNumber, deserializedFloatNumber);
+    }
+
+    @Test
+    public void serializeMaxNegativeDoubleTest() throws IOException, ClassNotFoundException {
+        Double doubleNumber = Double.MIN_VALUE;
+        byte[] doubleBytes = byteSerializer.serialize(doubleNumber);
+        Double deserializedDoubleNumber = (Double) byteSerializer.deserialize(doubleBytes);
+        assertEquals(doubleNumber, deserializedDoubleNumber);
+    }
+
+    @Test
+    public void serializeMaxPositiveDoubleTest() throws IOException, ClassNotFoundException {
+        Double doubleNumber = Double.MAX_VALUE;
+        byte[] doubleBytes = byteSerializer.serialize(doubleNumber);
+        Double deserializedDoubleNumber = (Double) byteSerializer.deserialize(doubleBytes);
+        assertEquals(doubleNumber, deserializedDoubleNumber);
+    }
+
+    @Test
+    public void serializeZeroDoubleTest() throws IOException, ClassNotFoundException {
+        Double doubleNumber = 0.0;
+        byte[] doubleBytes = byteSerializer.serialize(doubleNumber);
+        Double deserializedDoubleNumber = (Double) byteSerializer.deserialize(doubleBytes);
+        assertEquals(doubleNumber, deserializedDoubleNumber);
+    }
+
+    @Test
+    public void serializeMinCharTest() throws IOException, ClassNotFoundException {
+        Character character = Character.MIN_VALUE;
+        byte[] charBytes = byteSerializer.serialize(character);
+        Character deserializedChar = (Character) byteSerializer.deserialize(charBytes);
+        assertEquals(character, deserializedChar);
+    }
+
+    @Test
+    public void serializeMaxCharTest() throws IOException, ClassNotFoundException {
+        Character character = Character.MAX_VALUE;
+        byte[] charBytes = byteSerializer.serialize(character);
+        Character deserializedChar = (Character) byteSerializer.deserialize(charBytes);
+        assertEquals(character, deserializedChar);
+    }
+
+    @Test
+    public void serializeStringTest() throws IOException, ClassNotFoundException {
+        String string = "Hello World";
+        byte[] stringBytes = byteSerializer.serialize(string);
+        String deserializedString = (String) byteSerializer.deserialize(stringBytes);
+        assertEquals(string, deserializedString);
+    }
 }

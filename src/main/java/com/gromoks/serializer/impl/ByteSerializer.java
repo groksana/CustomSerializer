@@ -1,7 +1,6 @@
 package com.gromoks.serializer.impl;
 
 import com.gromoks.serializer.Serializer;
-import com.gromoks.serializer.constant.SerializerHeader;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -12,42 +11,65 @@ import static com.gromoks.serializer.constant.SerializerHeader.*;
 public class ByteSerializer implements Serializer {
 
     @Override
-    public void serialize(DataOutput dataOutput, Object object) throws IOException {
+    public void serialize(DataOutput output, Object object) throws IOException {
         final Class clazz = object != null ? object.getClass() : null;
 
         if (object == null) {
-            dataOutput.write(NULL);
+            output.write(NULL);
             return;
         } else if (clazz == Boolean.class) {
             if (((Boolean) object).booleanValue()) {
-                dataOutput.write(BOOLEAN_TRUE);
+                output.write(BOOLEAN_TRUE);
             } else {
-                dataOutput.write(BOOLEAN_FALSE);
+                output.write(BOOLEAN_FALSE);
             }
             return;
         } else if (clazz == Byte.class) {
             byte value = (Byte) object;
-            dataOutput.write(BYTE);
-            dataOutput.writeByte(value);
+            output.write(BYTE);
+            output.writeByte(value);
             return;
         } else if (clazz == Short.class) {
             short value = (Short) object;
-            dataOutput.write(SHORT);
-            dataOutput.writeShort(value);
+            output.write(SHORT);
+            output.writeShort(value);
             return;
         } else if (clazz == Integer.class) {
             int value = (Integer) object;
-            dataOutput.write(INTEGER);
-            dataOutput.writeInt(value);
+            output.write(INTEGER);
+            output.writeInt(value);
             return;
+        } else if (clazz == Long.class) {
+            long value = (Long) object;
+            output.write(LONG);
+            output.writeLong(value);
+            return;
+        } else if (clazz == Float.class) {
+            float value = (Float) object;
+            output.write(FLOAT);
+            output.writeFloat(value);
+            return;
+        } else if (clazz == Double.class) {
+            double value = (Double) object;
+            output.write(DOUBLE);
+            output.writeDouble(value);
+            return;
+        } else if (clazz == Character.class) {
+            char value = (Character) object;
+            output.write(CHAR);
+            output.writeChar(value);
+        } else if (clazz == String.class) {
+            String value = (String) object;
+            output.write(STRING);
+            output.writeChars(value);
         }
     }
 
     @Override
-    public Object deserialize(DataInput in) throws IOException {
+    public Object deserialize(DataInput input) throws IOException {
         Object result = null;
 
-        int head = in.readUnsignedByte();
+        int head = input.readUnsignedByte();
         switch (head) {
             case NULL:
                 break;
@@ -58,13 +80,28 @@ public class ByteSerializer implements Serializer {
                 result = Boolean.FALSE;
                 break;
             case BYTE:
-                result = in.readByte();
+                result = input.readByte();
                 break;
             case SHORT:
-                result = in.readShort();
+                result = input.readShort();
                 break;
             case INTEGER:
-                result = in.readInt();
+                result = input.readInt();
+                break;
+            case LONG:
+                result = input.readLong();
+                break;
+            case FLOAT:
+                result = input.readFloat();
+                break;
+            case DOUBLE:
+                result = input.readDouble();
+                break;
+            case CHAR:
+                result = input.readChar();
+                break;
+            case STRING:
+                result = input.readLine();
                 break;
         }
         return result;
@@ -86,4 +123,5 @@ public class ByteSerializer implements Serializer {
 
         return object;
     }
+
 }

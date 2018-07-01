@@ -63,7 +63,7 @@ public class DataObjectInput implements DataInput, ObjectInput {
 
     @Override
     public char readChar() throws IOException {
-        return 0;
+        return (char) readInt();
     }
 
     @Override
@@ -77,22 +77,30 @@ public class DataObjectInput implements DataInput, ObjectInput {
 
     @Override
     public long readLong() throws IOException {
-        return 0;
+        return
+                (((long) (byteArray[position++] & 0xff) << 56) |
+                        ((long) (byteArray[position++] & 0xff) << 48) |
+                        ((long) (byteArray[position++] & 0xff) << 40) |
+                        ((long) (byteArray[position++] & 0xff) << 32) |
+                        ((long) (byteArray[position++] & 0xff) << 24) |
+                        ((long) (byteArray[position++] & 0xff) << 16) |
+                        ((long) (byteArray[position++] & 0xff) << 8) |
+                        ((long) (byteArray[position++] & 0xff) << 0));
     }
 
     @Override
     public float readFloat() throws IOException {
-        return 0;
+        return Float.intBitsToFloat(readInt());
     }
 
     @Override
     public double readDouble() throws IOException {
-        return 0;
+        return Double.longBitsToDouble(readLong());
     }
 
     @Override
     public String readLine() throws IOException {
-        return null;
+        return deserializeString();
     }
 
     @Override
@@ -133,5 +141,14 @@ public class DataObjectInput implements DataInput, ObjectInput {
     @Override
     public void close() throws IOException {
 
+    }
+
+    private String deserializeString() throws IOException {
+        int len = readInt();
+        char[] chars = new char[len];
+        for (int i = 0; i < len; i++) {
+            chars[i] = readChar();
+        }
+        return new String(chars);
     }
 }

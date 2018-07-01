@@ -12,4 +12,5 @@ public final class SerializerHeader {
     public final static int FLOAT = 8;
     public final static int DOUBLE = 9;
     public final static int CHAR = 10;
+    public final static int STRING = 11;
 }
